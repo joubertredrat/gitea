@@ -815,6 +815,7 @@ var (
 		"stars",
 		"template",
 		"user",
+		"snippet",
 	}, public.KnownPublicEntries...)
 
 	reservedUserPatterns = []string{"*.keys", "*.gpg"}
