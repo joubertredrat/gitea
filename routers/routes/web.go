@@ -36,6 +36,7 @@ import (
 	"code.gitea.io/gitea/routers/org"
 	"code.gitea.io/gitea/routers/private"
 	"code.gitea.io/gitea/routers/repo"
+	"code.gitea.io/gitea/routers/snippet"
 	"code.gitea.io/gitea/routers/user"
 	userSetting "code.gitea.io/gitea/routers/user/setting"
 	"code.gitea.io/gitea/services/mailer"
@@ -698,6 +699,11 @@ func RegisterRoutes(m *web.Route) {
 			m.Combo("/{repoid}").Get(repo.Fork).
 				Post(bindIgnErr(auth.CreateRepoForm{}), repo.ForkPost)
 		}, context.RepoIDAssignment(), context.UnitTypes(), reqRepoCodeReader)
+	}, reqSignIn)
+
+	// ***** START: Snippet *****
+	m.Group("/snippet", func() {
+		m.Get("/create", snippet.Create)
 	}, reqSignIn)
 
 	// ***** Release Attachment Download without Signin
