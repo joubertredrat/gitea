@@ -1,0 +1,14 @@
+{{template "base/head" .}}
+<div class="page-content explore users">
+	{{template "explore/navbar" .}}
+	<div class="ui container">
+		{{template "explore/search" .}}
+
+		<div class="ui user list">
+			<div>{{$.i18n.Tr "explore.snippet_no_results"}}</div>
+		</div>
+
+		{{template "base/paginate" .}}
+	</div>
+</div>
+{{template "base/footer" .}}

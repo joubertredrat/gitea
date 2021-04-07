@@ -7,9 +7,9 @@ package models
 import "code.gitea.io/gitea/modules/timeutil"
 
 const (
-	visibilityPublic   = "public"
-	visibilityInternal = "internal"
-	visibilityPrivate  = "private"
+	visibilityPublic  = "public"
+	visibilityLimited = "limited"
+	visibilityPrivate = "private"
 )
 
 type Snippet struct {
@@ -29,8 +29,8 @@ func (snippet *Snippet) IsVisibilityPublic() bool {
 	return visibilityPublic == snippet.Visibility
 }
 
-func (snippet *Snippet) IsVisibilityInternal() bool {
-	return visibilityInternal == snippet.Visibility
+func (snippet *Snippet) IsVisibilityLimited() bool {
+	return visibilityLimited == snippet.Visibility
 }
 
 func (snippet *Snippet) IsVisibilityPrivate() bool {

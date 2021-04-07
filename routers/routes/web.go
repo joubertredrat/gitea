@@ -353,6 +353,7 @@ func RegisterRoutes(m *web.Route) {
 		m.Get("/users", routers.ExploreUsers)
 		m.Get("/organizations", routers.ExploreOrganizations)
 		m.Get("/code", routers.ExploreCode)
+		m.Get("/snippets", routers.ExploreSnippets)
 	}, ignExploreSignIn)
 	m.Get("/issues", reqSignIn, user.Issues)
 	m.Get("/pulls", reqSignIn, user.Pulls)

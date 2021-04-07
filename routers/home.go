@@ -32,6 +32,8 @@ const (
 	tplExploreOrganizations base.TplName = "explore/organizations"
 	// tplExploreCode explore code page template
 	tplExploreCode base.TplName = "explore/code"
+	// tplExploreSnippets explore snippets page template
+	tplExploreSnippets base.TplName = "explore/snippets"
 )
 
 // Home render home page
@@ -403,6 +405,27 @@ func ExploreCode(ctx *context.Context) {
 	ctx.Data["Page"] = pager
 
 	ctx.HTML(200, tplExploreCode)
+}
+
+// ExploreSnippets render explore snippets page
+func ExploreSnippets(ctx *context.Context) {
+	ctx.Data["UsersIsDisabled"] = setting.Service.Explore.DisableUsersPage
+	ctx.Data["Title"] = ctx.Tr("explore")
+	ctx.Data["PageIsExplore"] = true
+	ctx.Data["PageIsExploreSnippets"] = true
+	ctx.Data["IsRepoIndexerEnabled"] = setting.Indexer.RepoIndexerEnabled
+
+	visibleTypes := []structs.VisibleType{structs.VisibleTypePublic}
+	if ctx.User != nil {
+		visibleTypes = append(visibleTypes, structs.VisibleTypeLimited, structs.VisibleTypePrivate)
+	}
+
+	RenderUserSearch(ctx, &models.SearchUserOptions{
+		Actor:       ctx.User,
+		Type:        models.UserTypeOrganization,
+		ListOptions: models.ListOptions{PageSize: setting.UI.ExplorePagingNum},
+		Visible:     visibleTypes,
+	}, tplExploreSnippets)
 }
 
 // NotFound render 404 page

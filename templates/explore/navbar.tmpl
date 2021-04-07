@@ -15,4 +15,7 @@
 		{{svg "octicon-code"}} {{.i18n.Tr "explore.code"}}
 	</a>
 	{{end}}
+	<a class="{{if .PageIsExploreSnippets}}active{{end}} item" href="{{AppSubUrl}}/explore/snippets">
+		{{svg "octicon-file-code"}} {{.i18n.Tr "explore.snippets"}}
+	</a>
 </div>
