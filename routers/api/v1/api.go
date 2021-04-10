@@ -82,6 +82,7 @@ import (
 	"code.gitea.io/gitea/routers/api/v1/org"
 	"code.gitea.io/gitea/routers/api/v1/repo"
 	"code.gitea.io/gitea/routers/api/v1/settings"
+	"code.gitea.io/gitea/routers/api/v1/snippet"
 	_ "code.gitea.io/gitea/routers/api/v1/swagger" // for swagger generation
 	"code.gitea.io/gitea/routers/api/v1/user"
 
@@ -960,6 +961,12 @@ func Routes() *web.Route {
 				m.Get("/issue_templates", context.ReferencesGitRepo(false), repo.GetIssueTemplates)
 				m.Get("/languages", reqRepoReader(models.UnitTypeCode), repo.GetLanguages)
 			}, repoAssignment())
+		})
+
+		// Snippets
+
+		m.Group("/snippets", func() {
+			m.Get("/search", snippet.Search)
 		})
 
 		// Organizations
