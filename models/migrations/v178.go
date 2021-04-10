@@ -13,20 +13,27 @@ import (
 
 // createSnippetTable create snippet table for snippet feature
 func createSnippetTable(x *xorm.Engine) error {
-	type Snippet struct {
-		ID          string `xorm:"INDEX"`
-		OwnerID     int64  `xorm:"INDEX"`
+	type Snippetao struct {
+		ID          int64 `xorm:"pk autoincr"`
+		OwnerID     int64 `xorm:"INDEX"`
+		Name        string
 		Title       string
 		Visibility  string
 		Revision    int64
-		NumStars    int
+		NumStars    int64
 		CreatedUnix time.Time `xorm:"INDEX created"`
 		UpdatedUnix time.Time `xorm:"INDEX updated"`
 	}
 
-	if err := x.Sync(new(Snippet)); err != nil {
-		return fmt.Errorf("Error creating snippet table: %v", err)
+	sess := x.NewSession()
+	defer sess.Close()
+	if err := sess.Begin(); err != nil {
+		return err
 	}
 
-	return nil
+	if err := sess.Sync2(new(Snippetao)); err != nil {
+		return fmt.Errorf("Sync2: %v", err)
+	}
+
+	return sess.Commit()
 }

@@ -303,7 +303,7 @@ var migrations = []Migration{
 	// v177 -> v178
 	NewMigration("Delete orphaned IssueLabels", deleteOrphanedIssueLabels),
 	// v178 -> v179
-	NewMigration("Delete orphaned IssueLabels", createSnippetTable),
+	NewMigration("Create snippet table for snippet feature", createSnippetTable),
 }
 
 // GetCurrentDBVersion returns the current db version

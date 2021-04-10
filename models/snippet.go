@@ -13,13 +13,14 @@ const (
 )
 
 type Snippet struct {
-	ID         string `xorm:"INDEX"`
+	ID         int64  `xorm:"pk autoincr"`
 	OwnerID    int64  `xorm:"INDEX"`
 	Owner      *User  `xorm:"-"`
+	Name       string `xorm:"INDEX NOT NULL"`
 	Title      string
 	Visibility string
 	Revision   int64
-	NumStars   int
+	NumStars   int64
 
 	CreatedUnix timeutil.TimeStamp `xorm:"INDEX created"`
 	UpdatedUnix timeutil.TimeStamp `xorm:"INDEX updated"`
